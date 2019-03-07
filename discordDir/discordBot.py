@@ -1,6 +1,18 @@
 import json
 import requests
+import sys
 import os
+
+def sendSneak():
+	nameSTR = input("nameSTR: ")
+	commitSTR = input("commitSTR: ")
+	urlSTR = input("urlSTR: ")
+	if(nameSTR != "" and commitSTR != ""):
+		if(urlSTR == ""):
+			urlSTR = "link_not_available"
+		sendMessage(nameSTR, commitSTR, urlSTR)
+	else:
+		print("nameSTR and commitSTR can't be empty!")
 
 def getConfigData(path):
 	try:
@@ -29,7 +41,7 @@ def fetchToken():
 		return token
 
 def fetchChannel():
-	pathToChannel = os.path.join(os.getcwd(), 'discordDir', 'channel.txt')
+	pathToChannel = os.path.join(os.getcwd(),'discordDir', 'channel.txt')
 	channel = getConfigData(pathToChannel)
 	if(channel == "" or channel == None):
 		makeChannel(pathToChannel)
@@ -48,3 +60,11 @@ def sendMessage(name,commit, url):
 				"Content-Type":"application/json", }
 
 	r = requests.post(baseURL, headers = headers, data = POSTedJSON)
+
+try:
+	if(sys.argv[1].lower() == "sneak"):
+		print("Sneak mode activated! Get ready to send a message!")
+		while True:
+			sendSneak()
+except Exception as e:
+	print(e)

@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
-import chromedriver.ChromeDriverVersion
+import chromedrivers.ChromeDriverVersion
 
 from discordDir import discordBot
 
@@ -13,7 +13,7 @@ def getPage(url):
 	chrome_options.add_argument('--headless')
 	chrome_options.add_argument('--disable-gpu')
 
-	driver = webdriver.Chrome(str(chromedriver.ChromeDriverVersion.getPath()), options=chrome_options)
+	driver = webdriver.Chrome(str(chromedrivers.ChromeDriverVersion.getPath()), options=chrome_options)
 	page = driver.get(url)
 	pageContent = driver.page_source
 	driver.close()
